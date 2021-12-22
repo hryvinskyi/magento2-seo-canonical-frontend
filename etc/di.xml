@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2021. All rights reserved.
+  ~ @author: Volodymyr Hryvinskyi <mailto:volodymyr@hryvinskyi.com>
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Hryvinskyi\SeoCanonicalApi\Api\AddCanonicalLinkInterface"
+                type="Hryvinskyi\SeoCanonicalFrontend\Model\AddCanonicalLink"/>
+    <preference for="Hryvinskyi\SeoCanonicalApi\Api\CheckIsProductEnabledInterface"
+                type="Hryvinskyi\SeoCanonicalFrontend\Model\CheckIsProductEnabled"/>
+    <preference for="Hryvinskyi\SeoCanonicalApi\Api\GetCanonicalUrlInterface"
+                type="Hryvinskyi\SeoCanonicalFrontend\Model\GetCanonicalUrl"/>
+
+    <!-- Logger -->
+    <virtualType name="Hryvinskyi\SeoCanonicalFrontend\Model\Debug" type="Hryvinskyi\Logger\Model\Handler">
+        <arguments>
+            <argument name="config" xsi:type="object">Hryvinskyi\SeoCanonical\Model\Config</argument>
+            <argument name="fileName" xsi:type="string">/var/log/other/seo_canonical_frontend.log</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Hryvinskyi\SeoCanonicalFrontend\Model\Logger" type="Hryvinskyi\Logger\Model\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">HryvinskyiSeoCanonicalFrontend</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="error" xsi:type="object">Hryvinskyi\SeoCanonicalFrontend\Model\Debug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Hryvinskyi\SeoCanonicalFrontend\Model\GetCanonicalUrl">
+        <arguments>
+            <argument name="logger" xsi:type="object">Hryvinskyi\SeoCanonicalFrontend\Model\Logger</argument>
+        </arguments>
+    </type>
+</config>
