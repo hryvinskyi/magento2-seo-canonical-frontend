@@ -4,7 +4,9 @@
     "description": "N/A",
     "type": "magento2-module",
     "require": {
-        "magento/framework": "*"
+        "magento/framework": "*",
+        "hryvinskyi/magento2-logger": "*",
+        "hryvinskyi/magento2-seo-canonical-api": "*"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest"
