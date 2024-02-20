@@ -45,6 +45,16 @@ class Canonical implements ObserverInterface
     private $request;
 
     /**
+     * @var array
+     */
+    private $systemPages;
+
+    /**
+     * @var array
+     */
+    private $systemRoutes;
+
+    /**
      * @param AddCanonicalLinkInterface $addCanonicalLink
      * @param GetCanonicalUrlInterface $getCanonicalUrl
      * @param ConfigInterface $config
@@ -56,13 +66,16 @@ class Canonical implements ObserverInterface
         GetCanonicalUrlInterface $getCanonicalUrl,
         ConfigInterface $config,
         PageConfig $pageConfig,
-        RequestInterface $request
+        RequestInterface $request,
+        array $systemPages = [],
+        array $systemRoutes = []
     ) {
         $this->addCanonicalLink = $addCanonicalLink;
         $this->getCanonicalUrl = $getCanonicalUrl;
         $this->config = $config;
         $this->pageConfig = $pageConfig;
-        $this->request = $request;
+        $this->systemPages = $systemPages;
+        $this->systemRoutes = $systemRoutes;
     }
 
     /**
@@ -70,7 +83,11 @@ class Canonical implements ObserverInterface
      */
     public function execute(Observer $observer): void
     {
-        if (!$this->request instanceof HttpRequestInterface || $this->config->isEnabled() === false) {
+        if (!$this->request instanceof HttpRequestInterface
+            || $this->config->isEnabled() === false
+            || in_array($this->request->getFullActionName(), $this->systemPages, true)
+            || in_array($this->request->getRouteName(), $this->systemRoutes, true)
+        ) {
             return;
         }
 
