@@ -17,4 +17,13 @@
             </argument>
         </arguments>
     </type>
+
+    <type name="Hryvinskyi\SeoCanonicalFrontend\Observer\Canonical">
+        <arguments>
+            <argument name="systemRoutes" xsi:type="array">
+                <item name="checkout" xsi:type="string">checkout</item>
+                <item name="customer" xsi:type="string">customer</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
