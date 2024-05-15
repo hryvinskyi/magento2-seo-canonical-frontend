@@ -74,6 +74,7 @@ class Canonical implements ObserverInterface
         $this->getCanonicalUrl = $getCanonicalUrl;
         $this->config = $config;
         $this->pageConfig = $pageConfig;
+        $this->request = $request;
         $this->systemPages = $systemPages;
         $this->systemRoutes = $systemRoutes;
     }
