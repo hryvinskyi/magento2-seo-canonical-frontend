@@ -1,16 +1,23 @@
 <?xml version="1.0"?>
 <!--
-  ~ Copyright (c) 2021. All rights reserved.
-  ~ @author: Volodymyr Hryvinskyi <mailto:volodymyr@hryvinskyi.com>
-  -->
+/**
+ * Copyright (c) 2021-2025. MageCloud.  All rights reserved.
+ * @author: Volodymyr Hryvinskyi <mailto:volodymyr@hryvinskyi.com>
+ */
+-->
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
+    <type name="Magento\Framework\App\ActionInterface">
+        <plugin name="change_canonical_url"
+                type="Hryvinskyi\SeoCanonicalFrontend\Plugin\ChangeCanonicalUrl" sortOrder="99999999"/>
+    </type>
+
     <type name="Hryvinskyi\SeoCanonicalFrontend\Model\CanonicalUrlProcessor">
         <arguments>
             <argument name="items" xsi:type="array">
-                <item name="defalt" xsi:type="array">
+                <item name="default" xsi:type="array">
                     <item name="object" xsi:type="object">Hryvinskyi\SeoCanonicalFrontend\Model\DefaultCanonicalUrlProcess</item>
                     <item name="sortOrder" xsi:type="number">999999999</item>
                 </item>
@@ -18,7 +25,7 @@
         </arguments>
     </type>
 
-    <type name="Hryvinskyi\SeoCanonicalFrontend\Observer\Canonical">
+    <type name="Hryvinskyi\SeoCanonicalFrontend\Plugin\ChangeCanonicalUrl">
         <arguments>
             <argument name="systemRoutes" xsi:type="array">
                 <item name="checkout" xsi:type="string">checkout</item>
